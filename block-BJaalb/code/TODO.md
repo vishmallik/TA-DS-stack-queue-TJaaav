@@ -17,7 +17,7 @@ Properties:
 
 - `storage` use it to store the data for the stack. It should be an array
 - `capacity` defaults to `Infinity` if the length is above capacity the item can't be added. Alert a message saying `Stack is overflowing`
-- `length` it will return the length of the queue (Getter/Setter)
+- `length` it will return the length of the stack (Getter/Setter)
 
 YOU CAN ADD OTHER PROPERTIES IF YOU NEED.
 
@@ -124,38 +124,37 @@ console.log(stack2.remove()); // => 10
 console.log(stack2.isEmpty()); // true
 ```
 
-### Implement Queue using Object to Store Data
+### Implement Stack using Object to Store Data
 
-Create a class named `Queue` with the following properties and methods:
+Create a class named `Stack` with the following properties and methods:
 
 - While implementing this you can only use an Object to store the data
-- Test the `Queue` class using `Test 1` and `Test 2` given below
+- Test the `Stack` class using `Test 1` and `Test 2` given below
 
 Properties:
 
-- `storage` use it to store the data for the queue. It should be an object
-- `capacity` defaults to `Infinity` if the length is above capacity the item can't be added. Alert a message saying `Queue is overflowing`
-- `length` it will return the length of the queue (Getter/Setter)
+- `storage` use it to store the data for the stack. It should be an object
+- `capacity` defaults to `Infinity` if the length is above capacity the item can't be added. Alert a message saying `Stack is overflowing`
+- `length` it will return the length of the stack (Getter/Setter)
 
 YOU CAN ADD OTHER PROPERTIES IF YOU NEED.
 
 Methods:
 
-- `enqueue` Adds an element to the queue
-- `dequeue` Removes an element from the queue
-- `front` returns the first element from the queue
-- `printAll` print all the elements of the queue from one after another
-- `isEmpty` Returns `true` if the queue is empty
+- `add` Adds an element to the stack
+- `remove` Removes an element from the stack
+- `peek` returns the first element from the top of the stack
+- `printAll` print all the elements of the stack from one after another from the top
+- `isEmpty` Returns `true` if the stack is empty
 
 ```js
-class Queue {
-  // your code goes here
+class Stack {
   constructor(capacity = Infinity) {
     this.storage = {};
     this.capacity = capacity;
     this.next = null;
   }
-  enqueue(elm) {
+  add(elm) {
     if (Object.keys(this.storage).length < this.capacity) {
       if (!this.next) {
         this.storage[0] = elm;
@@ -167,15 +166,22 @@ class Queue {
         return Object.keys(this.storage).length;
       }
     }
-    alert("Queue is Overflowing");
+    alert("Stack is Overflowing");
   }
-  dequeue() {
-    let front = this.storage[Object.keys(this.storage)[0]];
-    delete this.storage[Object.keys(this.storage)[0]];
+  remove() {
+    let front =
+      this.storage[
+        Object.keys(this.storage)[Object.keys(this.storage).length - 1]
+      ];
+    delete this.storage[
+      Object.keys(this.storage)[Object.keys(this.storage).length - 1]
+    ];
     return front;
   }
-  front() {
-    return this.storage[Object.keys(this.storage)[0]];
+  peek() {
+    return this.storage[
+      Object.keys(this.storage)[Object.keys(this.storage).length - 1]
+    ];
   }
   printAll() {
     return Object.values(this.storage).forEach((elm) => console.log(elm));
@@ -191,62 +197,62 @@ class Queue {
 
 // Test 1
 
-const queue = new Queue();
+const stack = new Stack();
 
-queue.enqueue(10);
-queue.enqueue(12);
-queue.enqueue(120);
-queue.enqueue(1);
-queue.enqueue(4);
+stack.add(10);
+stack.add(12);
+stack.add(120);
+stack.add(1);
+stack.add(4);
 
-console.log(queue.dequeue()); // => 10
-console.log(queue.length); // => 4
-console.log(queue.dequeue()); // => 12
-console.log(queue.length); // => 3
+console.log(stack.remove()); // => 4
+console.log(stack.length); // => 4
+console.log(stack.remove()); // => 1
+console.log(stack.length); // => 3
 
-console.log(queue.front()); // 120
+console.log(stack.peek()); // 120
 
-console.log(queue.isEmpty()); // false
+console.log(stack.isEmpty()); // false
 
-console.log(queue.dequeue()); // => 120
+console.log(stack.remove()); // => 120
 
-console.log(queue.enqueue(100)); // 3
+console.log(stack.add(100)); // 3
 
-console.log(queue.front()); // => 1
+console.log(stack.peek()); // => 100
 
-console.log(queue.dequeue()); // => 1
-console.log(queue.dequeue()); // => 4
-console.log(queue.dequeue()); // => 100
+console.log(stack.remove()); // => 100
+console.log(stack.remove()); // => 12
+console.log(stack.remove()); // => 10
 
-console.log(queue.isEmpty()); // true
+console.log(stack.isEmpty()); // true
 
 // Test 2
 
-const queue2 = new Queue(4);
+const stack2 = new Stack(4);
 
-queue2.enqueue(10);
-queue2.enqueue(12);
-queue2.enqueue(120);
-queue2.enqueue(1);
-queue2.enqueue(4); // alert Queue is overflowing
+stack2.add(10);
+stack2.add(12);
+stack2.add(120);
+stack2.add(1);
+stack2.add(4); // alert Stack is overflowing
 
-console.log(queue2.dequeue()); // => 10
-console.log(queue2.length); // => 3
-console.log(queue2.dequeue()); // => 12
-console.log(queue2.length); // => 2
+console.log(stack2.remove()); // => 1
+console.log(stack2.length); // => 3
+console.log(stack2.remove()); // => 120
+console.log(stack2.length); // => 2
 
-console.log(queue2.front()); // 120
+console.log(stack2.peek()); // 12
 
-console.log(queue2.isEmpty()); // false
+console.log(stack2.isEmpty()); // false
 
-console.log(queue2.dequeue()); // => 120
+console.log(stack2.remove()); // => 12
 
-console.log(queue2.enqueue(100)); // 2
+console.log(stack2.add(100)); // 2
 
-console.log(queue2.front()); // => 1
+console.log(stack2.peek()); // => 100
 
-console.log(queue2.dequeue()); // => 1
-console.log(queue2.dequeue()); // => 100
+console.log(stack2.remove()); // => 100
+console.log(stack2.remove()); // => 10
 
-console.log(queue2.isEmpty()); // true
+console.log(stack2.isEmpty()); // true
 ```
