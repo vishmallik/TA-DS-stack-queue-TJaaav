@@ -9,7 +9,7 @@
 Create a class named `Queue` with the following properties and methods:
 
 - While implementing this you can use Array to store data and use any array methods.
-- Test the `Stack` class using `Test 1` and `Test 2` given below
+- Test the `Queue` class using `Test 1` and `Test 2` given below
 
 The class `Queue` will accept one optional parameter `capacity` using which we can limit the data size. The value of `capacity` will default to `Infinity`.
 
@@ -31,7 +31,33 @@ Methods:
 
 ```js
 class Queue {
-  // your code goes here
+  constructor(capacity = Infinity) {
+    this.storage = [];
+    this.capacity = capacity;
+  }
+  get length() {
+    return this.storage.length;
+  }
+  enqueue(elm) {
+    if (this.length >= this.capacity) {
+      alert("Queue is Overflowing");
+      return;
+    }
+    this.storage.push(elm);
+    return this.length;
+  }
+  dequeue() {
+    return this.storage.shift();
+  }
+  peek() {
+    return this.storage[0];
+  }
+  printAll() {
+    this.storage.forEach((elm) => console.log(elm));
+  }
+  isEmpty() {
+    return this.length === 0;
+  }
 }
 
 // Test 1
@@ -116,6 +142,37 @@ Methods:
 ```js
 class Queue {
   // your code goes here
+  constructor(capacity = Infinity) {
+    this.storage = {};
+    this.capacity = capacity;
+  }
+  get length() {
+    return Object.keys(this.storage).length;
+  }
+  enqueue(elm) {
+    if (this.length >= this.capacity) {
+      alert("Queue is Overflowing");
+      return;
+    }
+    this.storage[this.length] = elm;
+    return this.length;
+  }
+  dequeue() {
+    let index = Object.keys(this.storage)[0];
+    let elm = this.storage[index];
+    delete this.storage[index];
+    return elm;
+  }
+  peek() {
+    let index = Object.keys(this.storage)[0];
+    return this.storage[index];
+  }
+  printAll() {
+    return Object.values(this.storage).forEach((elm) => console.log(elm));
+  }
+  isEmpty() {
+    return this.length === 0;
+  }
 }
 
 // Test 1
