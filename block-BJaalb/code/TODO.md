@@ -152,36 +152,22 @@ class Stack {
   constructor(capacity = Infinity) {
     this.storage = {};
     this.capacity = capacity;
-    this.next = null;
   }
   add(elm) {
     if (Object.keys(this.storage).length < this.capacity) {
-      if (!this.next) {
-        this.storage[0] = elm;
-        this.next = 1;
-        return Object.keys(this.storage).length;
-      } else {
-        this.storage[this.next] = elm;
-        this.next += 1;
-        return Object.keys(this.storage).length;
-      }
+      this.storage[Object.keys(this.storage).length] = elm;
+      return Object.keys(this.storage).length;
     }
     alert("Stack is Overflowing");
   }
   remove() {
-    let front =
-      this.storage[
-        Object.keys(this.storage)[Object.keys(this.storage).length - 1]
-      ];
-    delete this.storage[
-      Object.keys(this.storage)[Object.keys(this.storage).length - 1]
-    ];
-    return front;
+    let index = Object.keys(this.storage).length - 1;
+    let elm = this.storage[index];
+    delete this.storage[index];
+    return elm;
   }
   peek() {
-    return this.storage[
-      Object.keys(this.storage)[Object.keys(this.storage).length - 1]
-    ];
+    return this.storage[Object.keys(this.storage).length - 1];
   }
   printAll() {
     return Object.values(this.storage).forEach((elm) => console.log(elm));
